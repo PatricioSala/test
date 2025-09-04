@@ -3,7 +3,7 @@ import supabase from "../../_shared/supabaseClient.ts";
 
 const Posts = supabase.from("posts");
 
-export const postsController = {
+const postsController = {
     getAll: async (c: Context) => {
         const { data, error } = await Posts
             .select("*");
@@ -18,7 +18,8 @@ export const postsController = {
         const { id } = c.req.param();
         const { data, error } = await Posts
             .select("*")
-            .eq("id", id);
+            .eq("id", id)
+            .single();
 
         if (error) {
             return c.json(error);
@@ -27,6 +28,31 @@ export const postsController = {
         return c.json(data);
     },
     create: async (c: Context) => {
-        return c.text("Create Post");
+        const postData = await c.req.parseBody();
+        
+        const { data, error } = await Posts
+            .insert(postData)
+            .select("*");
+
+        if (error) {
+            return c.json(error);
+        }
+
+        return c.json(data);
+    },
+    delete: async (c: Context) => {
+        const { id } = c.req.param();
+        const { data, error } = await Posts
+            .delete()
+            .eq("id", id)
+            .select("*");
+
+        if (error) {
+            return c.json(error);
+        }
+
+        return c.json(data);
     }
 };
+
+export default postsController;

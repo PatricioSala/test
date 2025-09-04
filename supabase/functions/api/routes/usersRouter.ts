@@ -1,5 +1,5 @@
 import { Hono } from 'jsr:@hono/hono';
-import { usersController } from '../controllers/usersController.ts';
+import usersController from '../controllers/usersController.ts';
 
 const router = new Hono();
 
