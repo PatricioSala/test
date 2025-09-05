@@ -2,7 +2,7 @@ name: Ping database to prevent the project from being paused
 
 on:
   schedule:
-    - cron: '5 18 * * *'
+    - cron: '10 18 * * *'
 
 jobs:
   ping:
