@@ -1,0 +1,12 @@
+name: Ping database to prevent the project from being paused.
+
+on:
+  schedule:
+    - cron: '5 18 * * *'
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        run: curl https://xypjqjegqnjooiclemkd.supabase.co/functions/v1/api/posts/4
