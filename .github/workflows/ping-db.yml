@@ -1,4 +1,4 @@
-name: Ping database to prevent the project from being paused.
+name: Ping database to prevent the project from being paused
 
 on:
   schedule:
@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        shell: zsh
-        name: Ping database
+      - name: Ping database
         run: curl https://xypjqjegqnjooiclemkd.supabase.co/functions/v1/api/posts/4
+        shell: zsh
