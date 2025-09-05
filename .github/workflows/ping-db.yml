@@ -11,4 +11,3 @@ jobs:
       - uses: actions/checkout@v4
       - name: Ping database
         run: curl https://xypjqjegqnjooiclemkd.supabase.co/functions/v1/api/posts/4
-        shell: zsh
