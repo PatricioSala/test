@@ -2,8 +2,10 @@ name: Ping Supabase Function
 
 on:
   schedule:
-    # Every 15 minutes
-    - cron: "*/15 * * * *"
+    # Every Sunday at 00:00 UTC
+    - cron: "0 0 * * 0"
+    # Every Wednesday at 00:00 UTC
+    - cron: "0 0 * * 3"
   workflow_dispatch: # allow manual trigger
 
 jobs:
