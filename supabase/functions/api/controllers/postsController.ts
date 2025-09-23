@@ -1,11 +1,9 @@
 import type { Context } from 'https://deno.land/x/hono/mod.ts';
 import supabase from "../../_shared/supabaseClient.ts";
 
-const Posts = supabase.from("posts");
-
 const postsController = {
     getAll: async (c: Context) => {
-        const { data, error } = await Posts
+        const { data, error } = await supabase.from("posts")
             .select("*");
 
         if (error) {
@@ -16,7 +14,7 @@ const postsController = {
     },
     getById: async (c: Context) => {
         const { id } = c.req.param();
-        const { data, error } = await Posts
+        const { data, error } = await supabase.from("posts")
             .select("*")
             .eq("id", id)
             .single();
@@ -30,7 +28,7 @@ const postsController = {
     create: async (c: Context) => {
         const postData = await c.req.parseBody();
         
-        const { data, error } = await Posts
+        const { data, error } = await supabase.from("posts")
             .insert(postData)
             .select("*");
 
@@ -42,7 +40,7 @@ const postsController = {
     },
     delete: async (c: Context) => {
         const { id } = c.req.param();
-        const { data, error } = await Posts
+        const { data, error } = await supabase.from("posts")
             .delete()
             .eq("id", id)
             .select("*");

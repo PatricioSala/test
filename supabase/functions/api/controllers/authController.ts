@@ -1,12 +1,10 @@
 import type { Context } from 'https://deno.land/x/hono/mod.ts';
 import supabase from "../../_shared/supabaseClient.ts";
 
-const Users = supabase.from("users");
-
 const authController = {
     signUp: async (c: Context) => {
         const userData = await c.req.parseBody();
-        const { data, error } = await Users
+        const { data, error } = await supabase.from("users")
             .insert({
                 username: userData.username,
                 email: userData.email,
@@ -23,7 +21,7 @@ const authController = {
     signIn: async (c: Context) => {
         const userData = await c.req.parseBody();
 
-        const { data, error } = await Users
+        const { data, error } = await supabase.from("users")
             .select("*")
             .eq("email", userData.email)
             .eq("password", userData.password)
