@@ -8,10 +8,13 @@ const usersController = {
             .insert({
                 username: userData.username,
                 email: userData.email,
-                password: userData.password
-            });
+                password: userData.password,
+                tag: userData.email.split("@")[0]
+            })
+            .select("*")
+            .single();
 
-        return c.text("Create User");
+        return c.json(data);
     },
     getAll: async (c: Context) => {
         const { data, error } = await supabase.from("users")

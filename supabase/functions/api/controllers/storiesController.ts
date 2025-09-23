@@ -1,19 +1,10 @@
 import type { Context } from 'https://deno.land/x/hono/mod.ts';
 import supabase from "../../_shared/supabaseClient.ts";
 
-const postsController = {
+const storiesController = {
     getAll: async (c: Context) => {
-        const { data, error } = await supabase.from("posts")
-            .select(`
-                    body,
-                    likes,
-                    media_url,
-                    user:users (
-                        tag,
-                        username,
-                        profile_picture
-                    )
-                `);
+        const { data, error } = await supabase.from("stories")
+            .select("*");
 
         if (error) {
             return c.json(error);
@@ -23,7 +14,7 @@ const postsController = {
     },
     getById: async (c: Context) => {
         const { id } = c.req.param();
-        const { data, error } = await supabase.from("posts")
+        const { data, error } = await supabase.from("stories")
             .select("*")
             .eq("id", id)
             .single();
@@ -37,10 +28,9 @@ const postsController = {
     create: async (c: Context) => {
         const postData = await c.req.parseBody();
         
-        const { data, error } = await supabase.from("posts")
+        const { data, error } = await supabase.from("stories")
             .insert(postData)
-            .select("*")
-            .single();
+            .select("*");
 
         if (error) {
             return c.json(error);
@@ -50,7 +40,7 @@ const postsController = {
     },
     delete: async (c: Context) => {
         const { id } = c.req.param();
-        const { data, error } = await supabase.from("posts")
+        const { data, error } = await supabase.from("stories")
             .delete()
             .eq("id", id)
             .select("*");
@@ -63,4 +53,4 @@ const postsController = {
     }
 };
 
-export default postsController;
+export default storiesController;

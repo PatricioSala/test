@@ -7,8 +7,6 @@ router.get('/', postsController.getAll);
 
 router.get("/:id", postsController.getById);
 
-router.get("/create", postsController.createScreen);
-
-router.post('/create', postsController.create);
+router.post('/', postsController.create);
 
 export default router;
